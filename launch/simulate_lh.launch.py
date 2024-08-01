@@ -6,6 +6,7 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.actions import IncludeLaunchDescription
 from launch.conditions import IfCondition
+from launch.descriptions import executable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 
@@ -22,7 +23,7 @@ def generate_launch_description():
     
     #read the sdf file as a string 
     with open(sdf_file_path, 'r') as sdf_file:
-        robot_description = sdf_file.read()
+        robot_description = sdf_file.read().replace("model://", "package://little_helper_description/model/")
 
     ign_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -32,6 +33,10 @@ def generate_launch_description():
         launch_arguments={'ign_args': os.path.join(pkg_lh_sim, 'worlds', 'box_world.sdf') +  ' -v'}.items(),
     )
 
+    robot_state = Node(package='robot_state_publisher',
+                       executable='robot_state_publisher',
+                       parameters=[{'robot_description': robot_description}])
+
     spawn_little_helper = Node(package='ros_gz_sim',
                                executable='create',
                                arguments=['-name', 'little_helper', '-file', sdf_file_path],
@@ -39,4 +44,4 @@ def generate_launch_description():
 
     
     
-    return LaunchDescription([ign_sim, spawn_little_helper ])
+    return LaunchDescription([ign_sim, spawn_little_helper, robot_state ])
