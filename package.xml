@@ -12,6 +12,11 @@
   <depend>ros_gz_sim</depend>
   <depend>rviz2</depend>
   <depend>ros_gz_bridge</depend>
+  <depend>control_msgs<depend>
+  <depend>rclcpp</depend>
+  <depend>std_msgs</dependZ>
+  <depend>rosgraph_msgs</depend>
+  <depend>rclcpp_action</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
