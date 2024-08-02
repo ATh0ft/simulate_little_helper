@@ -14,7 +14,7 @@
   <depend>ros_gz_bridge</depend>
   <depend>control_msgs<depend>
   <depend>rclcpp</depend>
-  <depend>std_msgs</dependZ>
+  <depend>std_msgs</depend>
   <depend>rosgraph_msgs</depend>
   <depend>rclcpp_action</depend>
 
