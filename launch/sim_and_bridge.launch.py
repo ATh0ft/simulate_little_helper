@@ -170,7 +170,10 @@ def generate_launch_description():
                  output='screen')
         )
 
-
+    
+    fortress_trj_control = Node(package='simulate_little_helper',
+                                executable='fortress_trajectory_controller',
+                                output='screen')
 
 
 
@@ -188,5 +191,6 @@ def generate_launch_description():
                               clock_bridge,
                               cmd_vel_bridge,
                               vt_laser_link_tf,
+                              fortress_trj_control,
                               # laser_scan_merger
                               ]+ur_join_bridge_nodes)
