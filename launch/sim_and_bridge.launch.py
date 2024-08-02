@@ -32,7 +32,7 @@ def generate_launch_description():
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')
         ), 
         # set it to use the empty world specified in the pgk 
-        launch_arguments={'ign_args': os.path.join(pkg_lh_sim, 'worlds', 'workspace1.sdf') +  ' -v'}.items(),
+        launch_arguments={'ign_args': os.path.join(pkg_lh_sim, 'worlds', 'workspace1.sdf') +  ' -v' + ' -r'}.items(),
     )
 
     spawn_little_helper = Node(package='ros_gz_sim',
