@@ -12,23 +12,16 @@ from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 
 from launch_ros.actions import Node
 
-import xacro 
 
 
 def generate_launch_description():
     pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
-    pkg_ign_ros_bridge = get_package_share_directory('ros_gz_bridge')
     pkg_lh_description = get_package_share_directory('little_helper_description')
     pkg_lh_sim = get_package_share_directory('simulate_little_helper')
-    pkg_lh_urdf = get_package_share_directory('little_helper_urdf')
 
     sdf_file_path = os.path.join(pkg_lh_description, 'model', 'model', 'little_helper.sdf')
-    urdf_file_path = os.path.join(pkg_lh_urdf, 'little_helper10_arm_on_left.urdf')
     
-    #read the urdf file as a string 
-    with open(urdf_file_path, 'r') as urdf_file:
-        robot_description_urdf = urdf_file.read()
-    
+    #read the sdf file as a string 
     with open(sdf_file_path, 'r') as sdf_file:
         robot_description_sdf = sdf_file.read().replace('model://', 'package://little_helper_description/model/')
 
