@@ -119,7 +119,15 @@ def generate_launch_description():
                             robot_name + '/chassis',
                             'virtual_laser_link'
                             ])
-    
+   
+    base_link_tf = Node(package='tf2_ros',
+                            executable= 'static_transform_publisher',
+                            name='base_link_tf_pub',
+                            arguments=[
+                            '0', '0', '0', '0', '0', '0',
+                            robot_name + '/chassis',
+                            'base_link'
+                            ])
  
 
     joint_state_bridge = Node(package='ros_gz_bridge',
@@ -141,16 +149,21 @@ def generate_launch_description():
                           arguments=['/cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist'],
                           output='screen')
 
-        
+    imu_bridge = Node(package='ros_gz_bridge',
+                      executable='parameter_bridge',
+                      name='imu_bridge',
+                      arguments=['imu@sensor_msgs/msg/Imu[ignition.msgs.IMU'],
+                      output='screen'
+                      ) 
     
     # ur joint position bridges 
 
-    ur_joint_pos_topic_names = ['shoulder_pan_joint_cmd',
-                                'shoulder_lift_joint_cmd',
-                                'elbow_joint_cmd',
-                                'wrist_1_joint_cmd',
-                                'wrist_2_joint_cmd',
-                                'wrist_3_joint_cmd']
+    ur_joint_pos_topic_names = ['shoulder_pan_joint',
+                                'shoulder_lift_joint',
+                                'elbow_joint',
+                                'wrist_1_joint',
+                                'wrist_2_joint',
+                                'wrist_3_joint']
     
     ur_join_bridge_nodes = []
 
@@ -184,6 +197,8 @@ def generate_launch_description():
                               clock_bridge,
                               cmd_vel_bridge,
                               vt_laser_link_tf,
+                              base_link_tf,
                               fortress_trj_control,
+                              imu_bridge,
                               # laser_scan_merger
                               ]+ur_join_bridge_nodes)
