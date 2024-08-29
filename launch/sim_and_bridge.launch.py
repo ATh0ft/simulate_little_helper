@@ -16,7 +16,7 @@ def generate_launch_description():
     pkg_lh_sim = get_package_share_directory('simulate_little_helper')
 
     sdf_file_path = os.path.join(pkg_lh_description, 'model', 'model', 'little_helper.sdf')
-    
+    print(f"sdf file path {sdf_file_path}")
     #read the sdf file as a string 
     with open(sdf_file_path, 'r') as sdf_file:
         robot_description_sdf = sdf_file.read().replace('model://', 'package://little_helper_description/model/')
